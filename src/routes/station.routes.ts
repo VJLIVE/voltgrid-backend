@@ -1,21 +1,47 @@
 import { Router } from "express";
 
+import {
+  createStation,
+  getStations,
+  updateStation,
+  deleteStation
+} from "../controllers/station.controller";
+
+import { authenticate } from "../middleware/auth.middleware";
+import { authorize } from "../middleware/role.middleware";
+
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("Get all stations");
-});
+/* both roles can view stations */
+router.get(
+  "/",
+  authenticate,
+  authorize("admin", "driver"),
+  getStations
+);
 
-router.post("/", (req, res) => {
-  res.send("Create station");
-});
+/* admin only */
+router.post(
+  "/",
+  authenticate,
+  authorize("admin"),
+  createStation
+);
 
-router.put("/:id", (req, res) => {
-  res.send("Update station");
-});
+/* admin only */
+router.put(
+  "/:id",
+  authenticate,
+  authorize("admin"),
+  updateStation
+);
 
-router.delete("/:id", (req, res) => {
-  res.send("Delete station");
-});
+/* admin only */
+router.delete(
+  "/:id",
+  authenticate,
+  authorize("admin"),
+  deleteStation
+);
 
 export default router;
