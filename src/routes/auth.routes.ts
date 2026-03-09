@@ -1,0 +1,13 @@
+import { Router } from "express";
+
+const router = Router();
+
+router.post("/register", (req, res) => {
+  res.send("Register route");
+});
+
+router.post("/login", (req, res) => {
+  res.send("Login route");
+});
+
+export default router;
