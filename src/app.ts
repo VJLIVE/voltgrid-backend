@@ -17,5 +17,6 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/stations", stationRoutes);
+app.get("/api/health", (_req, res) => { res.json({ status: "ok" }); });
 
 export default app;
